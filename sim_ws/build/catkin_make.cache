@@ -1,0 +1,2 @@
+Move_base_in_ROS/base_planner:Move_base_in_ROS/scout_description
+-DCATKIN_DEVEL_PREFIX=/home/zk/sim_ws/devel -DCMAKE_INSTALL_PREFIX=/home/zk/sim_ws/install -G Unix Makefiles

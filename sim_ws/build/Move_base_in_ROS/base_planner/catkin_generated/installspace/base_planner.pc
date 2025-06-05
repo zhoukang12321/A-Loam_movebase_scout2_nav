@@ -1,0 +1,8 @@
+prefix=/home/zk/sim_ws/install
+
+Name: base_planner
+Description: Description of base_planner
+Version: 0.0.0
+Cflags: -I${prefix}/include
+Libs: -L${prefix}/lib -lbase_planner -lgeometry_msgs -lroscpp
+Requires: 
