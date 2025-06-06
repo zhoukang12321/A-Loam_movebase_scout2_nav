@@ -1,0 +1,52 @@
+<launch>
+
+     <node pkg="tf" type="static_transform_publisher" name="map_to_odom"
+          args="0 0 0 0 0 0 map odom 100"/>
+    <node pkg="tf" type="static_transform_publisher" name="map_base_transform"
+          args="0 0 0 0 0 0 map base_footprint 100"/>
+    <node pkg="tf" type="static_transform_publisher" name="odom_to_base_footprint"
+          args="0 0 0 0 0 0 odom base_link 100"/>
+      <!-- 激光雷达到 base_link 的变换，请根据您的安装位置修改 -->
+    <node pkg="tf" type="static_transform_publisher" name="base_link_to_laser_link"
+          args="0.2 0 0.1 0 0 0 base_link laser 100"/>
+    <!-- <node pkg="tf" type="static_transform_publisher" name="rslidar_to_base_link_broadcaster"
+          args="0 0 0 0 0 0 rslidar base_link 100"/> -->
+
+
+    <node pkg="tf" type="static_transform_publisher" name="base_link_to_front_left_wheel"
+          args="0.31 0.21 0 0 0 0 base_link front_left_wheel_link 100"/>
+    <node pkg="tf" type="static_transform_publisher" name="base_link_to_front_right_wheel"
+          args="0.31 -0.21 0 0 0 0 base_link front_right_wheel_link 100"/>
+    <node pkg="tf" type="static_transform_publisher" name="base_link_to_rear_left_wheel"
+          args="-0.42 0.21 0 0 0 0 base_link rear_left_wheel_link 100"/>
+    <node pkg="tf" type="static_transform_publisher" name="base_link_to_rear_right_wheel"
+          args="-0.42 -0.21 0 0 0 0 base_link rear_right_wheel_link 100"/>
+    <node pkg="tf" type="static_transform_publisher" name="base_link_to_imu_broadcaster"
+          args="0 0 0 0 0 0  base_link imu 100"/>   
+    <node pkg="move_base" type="move_base" respawn="false" name="move_base" output="screen">
+        <rosparam file="$(find base_planner)/param/costmap_common_params.yaml" command="load" ns="global_costmap" />
+        <rosparam file="$(find base_planner)/param/costmap_common_params.yaml" command="load" ns="local_costmap" />
+        <rosparam file="$(find base_planner)/param/local_costmap_params.yaml" command="load" />
+        <rosparam file="$(find base_planner)/param/global_costmap_params.yaml" command="load" />
+        <rosparam file="$(find base_planner)/param/base_local_planner_params.yaml" command="load" />
+    </node>
+
+    <node name="map_server" pkg="map_server" type="map_server" args="$(find base_planner)/maps/my_world.yaml" />
+    <node name="rviz" pkg="rviz" type="rviz" args="-d $(find base_planner)/launch/config.rviz" />
+    
+    
+    <include file="$(find base_planner)/launch/amcl.launch" />
+    <group>
+        <param name="robot_description"
+               command="$(find xacro)/xacro $(find scout_description)/urdf/scout_v2.urdf"/>
+
+        
+    </group>
+    <include file="$(find gazebo_ros)/launch/empty_world.launch">
+        <arg name="world_name" value="$(find base_planner)/world/my_world.world" />
+    </include>
+    <node pkg="gazebo_ros" type="spawn_model" name="model" args="-urdf -model mycar -param robot_description"  />
+
+    <node pkg="robot_state_publisher" type="robot_state_publisher" name="robot_state_publisher" output="screen" />
+    <node pkg="joint_state_publisher" type="joint_state_publisher" name="joint_state_publisher" output="screen" />
+</launch>
