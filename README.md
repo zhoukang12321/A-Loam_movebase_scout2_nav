@@ -123,8 +123,11 @@ AMCL节点，主要修改config.yaml文件
  7 下载movebase导航包，编写局部teb动态窗口局部规划参数，navfn全局规划参数，常规代价地图，全局代价地图，局部代价地图参数文件,启动导航
  在rviz打开map，订阅节点map,打开robotmodel,打开path,观察仿真环境小车运动。
 
- ##sim_ws为仿真小车工作空间，可以单独取出来编译
+ ##sim_ws为仿真小车工作空间，可以单独取出来编译,也可以参考下面链接自行修改
+ ```
+git clone https://github.com/bithuanglq/Move_base_in_ROS.git
+```
  ```
 source devel/setup.bash
-roslaunch base_planner na
+roslaunch base_planner navtest.launch
 ```
