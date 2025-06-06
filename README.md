@@ -138,5 +138,5 @@ You can specify the end point arbitrarily in rviz, and the robot will independen
 
 Click 2D Nav Goal in the upper column and select the target position. The result is as shown below: 
 <div align="center">
-  <img src="base_planner/result/result.gif" alt="result" width="100%" height="100%" />
+  <img src="[base_planner/result/result.gif](https://github.com/zhoukang12321/A-Loam_movebase_scout2_nav/blob/main/sim_ws/src/base_planner/result/result.gif)" alt="result" width="100%" height="100%" />
 </div>
