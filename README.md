@@ -1,6 +1,22 @@
 # A-Loam_movebase_scout2_nav
 A-loam纯Robosense SLAM建图，movebase导航，scout2松灵小车导航
 # 环境ubuntu20.04 ROS1 noetic  ceres 1.14，robosense32 线
+##ROS1安装：
+```
+sudo sh -c '. /etc/lsb-release && echo "deb http://mirrors.tuna.tsinghua.edu.cn/ros/ubuntu/ `lsb_release -cs` main" > /etc/apt/sources.list.d/ros-latest.list'
+sudo apt update
+sudo apt install ros-noetic-desktop-full
+echo "source /opt/ros/noetic/setup.bash" >> ~/.bashrc
+source ~/.bashrc
+#分别在三个终端下运行
+sudo rosdep init
+rosdep update
+#分别在三个终端下运行
+roscore
+rosrun turtlesim turtlesim_node 
+rosrun turtlesim turtle_teleop_key 
+
+```
 ## Step1
 ```
     cd ~/catkin_ws/src
